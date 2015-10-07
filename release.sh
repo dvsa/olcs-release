@@ -5,7 +5,7 @@ source ./versions.sh
 
 cd ../release
 
-tar -czf OLCS-$OLCS_VERSION.tar.gz \
+tar --transform='flags=r;s|\/|-|' -czf OLCS-$OLCS_VERSION.tar.gz \
 olcs-backend/$BACKEND.tar.gz \
 olcs-internal/$INTERNAL.tar.gz \
 olcs-selfserve/$SELFSERVE.tar.gz \
