@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Define all versions
-source versions.sh
+source ./versions.sh
 
 cd ../release
 
