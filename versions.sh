@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Define the version of the OLCS release
-OLCS_VERSION="0.1.2"
+OLCS_VERSION="1.0"
 
 # Define the individual application version
 BACKEND="0.3"
