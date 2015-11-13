@@ -1,0 +1,49 @@
+<?php
+
+return [
+    // New Backend service
+    'api_router' => [
+        'routes' => [
+            'api' => [
+                'child_routes' => [
+                    'backend' => [
+                        'options' => [
+                            // Backend service URI *Environment specific*
+                            'route' => 'api.<%= @domain %>'
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    ],
+
+    // Service addresses
+    'service_api_mapping' => [
+        'endpoints' => [
+            // Backend service URI *Environment specific*
+            'backend' => [
+                'url' => 'http://api.<%= @domain %>/',
+                'options' => [
+                    'adapter' => \Zend\Http\Client\Adapter\Curl::class,
+                    'timeout' => 60,
+                ]
+            ],
+            // Postcode/Address service URI *Environment specific*
+            'postcode' => [
+                'url' => 'http://address.<%= @domain %>/',
+                'options' => [
+                    'adapter' => \Zend\Http\Client\Adapter\Curl::class,
+                    'timeout' => 60,
+                ]
+            ],
+        ]
+    ],
+    // Document service
+    'document_share' => [
+        // File hyperlink to document
+        'uri_pattern' => 'file://scan.<%= @domain %>/OLCS/olcs/%s'
+    ],
+
+    // Asset path, URI to olcs-static (CSS, JS, etc] *Environment specific*
+    'asset_path' => '/static/public',
+];
