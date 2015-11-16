@@ -7,7 +7,7 @@ cp api.erb ../release/api/$BACKEND.erb
 cp iuweb.erb ../release/iuweb/$INTERNAL.erb
 cp ssweb.erb ../release/ssweb/$SELFSERVE.erb
 
-if [ -d olcs-txt ]; then
+if [ ! -d olcs-txt ]; then
     git clone git@gitlab.inf.mgt.mtpdvsa:olcs/olcs-txc.git
 fi
 
