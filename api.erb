@@ -98,14 +98,14 @@ return [
     // Set the following if you need to go via a proxy to get to Companies house XML gateway
     // *Environment specific*
     'companies_house_connection' => [
-        'proxy' => "<%= scope.function_hiera(['shd_proxy']] %>"
+        'proxy' => "<%= scope.function_hiera(['shd_proxy']) %>"
     ],
 
     // Document service
     'document_share' => [
         'client' => [
             // Document service URI *Environment specific*
-            'baseuri' => "<%= scope.function_hiera(['olcs_docman']] %>",
+            'baseuri' => "<%= scope.function_hiera(['olcs_docman']) %>",
             // Document service user ID *Environment specific*
             'uuid' => 'uD12345',
             // Document service workspace "olcs"
@@ -119,12 +119,12 @@ return [
             // Set the following if you need to go via a proxy to get to Companies House RESTful API
             // *Environment specific*
             'curloptions' => [
-                CURLOPT_PROXY => "http://<%= scope.function_hiera(['shd_proxy']] %>",
+                CURLOPT_PROXY => "http://<%= scope.function_hiera(['shd_proxy']) %>",
             ],
         ],
         'auth' => [
             // Companies House API key (register one at https://developer.companieshouse.gov.uk/] *Environment specific*
-            'username' => "<%= scope.function_hiera(['olcs_companieshouseapikey']] %>",
+            'username' => "<%= scope.function_hiera(['olcs_companieshouseapikey']) %>",
             // Leave this empty
             'password' => '',
         ],
@@ -144,7 +144,7 @@ return [
                 //CPMS API version to use
                 'version' => 2,
                 // CPMS hostname eg 'payment-service.psqa-ap01.ps.npm' *Environment specific*
-                'domain' => "<%= scope.function_hiera(['olcs_cpmsserver']] %>",
+                'domain' => "<%= scope.function_hiera(['olcs_cpmsserver']) %>",
             ],
         ],
     ],
@@ -156,7 +156,7 @@ return [
         // CPMS client ID *Environment specific*
         'client_id' => 'OLCS',
         // CPMS Client secret *Environment specific*
-        'client_secret' => "<%= scope.function_hiera(['olcs_cpmssecret']] %>"
+        'client_secret' => "<%= scope.function_hiera(['olcs_cpmssecret']) %>"
     ],
 
     // AUTH config
