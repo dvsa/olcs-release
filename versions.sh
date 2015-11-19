@@ -1,12 +1,12 @@
 #!/bin/sh
 
 # Define the version of the OLCS release
-OLCS_VERSION="1.1"
+OLCS_VERSION="1.1.1"
 
 # Define the individual application version
-BACKEND="0.4"
-INTERNAL="0.4"
-SELFSERVE="0.4"
-STATIC="0.4"
+BACKEND="0.5"
+INTERNAL="0.5"
+SELFSERVE="0.5"
+STATIC="0.5"
 SCANNING="0.2"
 TXCHANGE="0.1"
