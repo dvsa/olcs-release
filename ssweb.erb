@@ -9,7 +9,7 @@ return [
                     'backend' => [
                         'options' => [
                             // Backend service URI *Environment specific*
-                            'route' => 'api.<%= @domain %>'
+                            'route' => 'ssap2.<%= @domain %>'
                         ]
                     ]
                 ]
@@ -22,7 +22,7 @@ return [
         'endpoints' => [
             // Backend service URI *Environment specific*
             'backend' => [
-                'url' => 'http://api.<%= @domain %>/',
+                'url' => 'http://ssap2.<%= @domain %>/',
                 'options' => [
                     'adapter' => \Zend\Http\Client\Adapter\Curl::class,
                     'timeout' => 60,
@@ -40,4 +40,11 @@ return [
     ],
     // Asset path, URI to olcs-static (CSS, JS, etc] *Environment specific*
     'asset_path' => '/static/public',
+    'openam' => [
+        'url' => 'http://olcs-selfserve.olcs.gov.uk/secure/', // @NOTE CHANGEME
+        'realm' => 'selfserve',
+        'cookie' => [
+            'domain' => '.olcs.gov.uk', // @NOTE CHANGEME
+        ]
+    ]
 ];

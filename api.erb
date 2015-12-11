@@ -25,6 +25,8 @@ return [
         // Debugging option forces all email to be sent to an address (Comment out to send emails to real recipients]
         // 'send_all_mail_to' => '',
         // Url for selfserve *Environment specific*
+        'from_name' => 'OLCS do not reply',
+        'from_email' => '<%= @olcs_from_email %>',
         'selfserve_uri' => '<%= @olcs_selfserve_uri %>',
     ],
 
@@ -166,7 +168,9 @@ return [
         'uri' => 'http://dir.<%= @domain %>:8080',
         'pid_header' => 'X-Pid'
     ],
-    'zfc_rbac' => [
-        'identity_provider' => \Dvsa\Olcs\Api\Rbac\PidIdentityProvider::class,
+    'ebsr' => [
+        'transexchange_publisher' => [
+            'uri' => 'http://localhost:8080/txc/publisherService', // @NOTE CHANGEME
+        ],
     ],
 ];

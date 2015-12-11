@@ -46,4 +46,11 @@ return [
 
     // Asset path, URI to olcs-static (CSS, JS, etc] *Environment specific*
     'asset_path' => '/static/public',
+    'openam' => [
+        'url' => 'http://olcs-internal.olcs.gov.uk/secure/', // @NOTE CHANGEME
+        'realm' => 'internal',
+        'cookie' => [
+            'domain' => '.olcs.gov.uk', // @NOTE CHANGEME
+        ]
+    ]
 ];
