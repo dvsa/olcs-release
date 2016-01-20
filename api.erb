@@ -15,40 +15,16 @@ return [
     // Postcode/Address service
     'address' => [
         'client' => [
-            // URI eg http://postcode.cit.olcs.mgt.mtpdvsa/ *Environment specific*
+            // URI e.g. http://postcode.cit.olcs.mgt.mtpdvsa/ *Environment specific*
             'baseuri' => 'http://address.<%= @domain %>/'
         ]
     ],
 
-    // Email config
-    'email' => [
-        // Debugging option forces all email to be sent to an address (Comment out to send emails to real recipients]
-        // 'send_all_mail_to' => '',
-        // Url for selfserve *Environment specific*
-        'selfserve_uri' => '<%= @olcs_selfserve_uri %>',
-    ],
-
-    'mail' => [],
-    'mailboxes' => [
-        // IMAP connection to a the mailbox for reading inspection request emails
-        'inspection_request' => [
-            // IMAP hostname *Environment specific*
-            'host' => 'mail01.olcs.mgt.mtpdvsa',
-            // IMAP user *Environment specific*
-            'user' => 'olcsemail',
-            // IMAP password *Environment specific*
-            'password' => '74398f7g39',
-            // IMAP port 993 *Environment specific*
-            'port' => 993,
-            'ssl' => 'SSL',
-        ],
-    ],
-
     // Elastic search
     'elastic_search' => [
-        // Hostname eg elasticsearch-dev.olcs.mgt.mtpdvsa *Environment specific*
+        // Hostname e.g. elasticsearch-dev.olcs.mgt.mtpdvsa *Environment specific*
         'host' => 'search.<%= @domain %>',
-        // Port, eg 9200
+        // Port, e.g. 9200
         'port' => '9200'
     ],
 
@@ -64,7 +40,7 @@ return [
                     // *Environment specific*
                     'port' => '3306',
                     // *Environment specific*
-                    'user' => 'master',
+                    'user' => 'olcsapi',
                     // *Environment specific*
                     'password' => '<%= @olcs_api_rds_password %>',
                     // *Environment specific*
@@ -143,7 +119,7 @@ return [
             'options' => [
                 //CPMS API version to use
                 'version' => 2,
-                // CPMS hostname eg 'payment-service.psqa-ap01.ps.npm' *Environment specific*
+                // CPMS hostname e.g. 'payment-service.psqa-ap01.ps.npm' *Environment specific*
                 'domain' => "<%= scope.function_hiera(['olcs_cpmsserver']) %>",
             ],
         ],
@@ -152,6 +128,7 @@ return [
     // CPMS service authentication - used by CpmsIdentityProvider service
     'cpms_credentials' => [
         // CPMS user ID *Environment specific*
+        // (this can be left as is, will be deprecated in the future once authentication is implemented)
         'user_id' => '1234',
         // CPMS client ID *Environment specific*
         'client_id' => 'OLCS',
@@ -159,14 +136,44 @@ return [
         'client_secret' => "<%= scope.function_hiera(['olcs_cpmssecret']) %>"
     ],
 
+    // Email config
+    'email' => [
+        // Debugging option forces all email to be sent to an address
+        // 'send_all_mail_to' => 'terry.valtech@gmail.com',
+        // Selfserve/external URI e.g. http://demo_dvsa-selfserve.web03.olcs.mgt.mtpdvsa *Environment specific*
+        'from_name' => 'OLCS do not reply',
+        'from_email' => '<%= @olcs_from_email %>',
+        'selfserve_uri' => '<%= @olcs_ss_uri %>',
+        'internal_uri' => '',
+    ],
+
+    'mail' => [],
+    'mailboxes' => [
+        // IMAP connection to a the mailbox for reading inspection request emails
+        'inspection_request' => [
+            // IMAP hostname *Environment specific*
+            'host' => 'mail01.olcs.mgt.mtpdvsa',
+            // IMAP user *Environment specific*
+            'user' => 'olcsemail',
+            // IMAP password *Environment specific*
+            'password' => '74398f7g39',
+            // IMAP port 993 *Environment specific*
+            'port' => 993,
+            'ssl' => 'SSL',
+        ],
+    ],
+
     // AUTH config
     'openam' => [
         'username' => 'olcs_app',
-        'password' => 'password',
+        'password' => '<%= @olcs_api_opendj_password %>',
         'uri' => 'http://dir.<%= @domain %>:8080',
         'pid_header' => 'X-Pid'
     ],
-    'zfc_rbac' => [
-        'identity_provider' => \Dvsa\Olcs\Api\Rbac\PidIdentityProvider::class,
+
+    'ebsr' => [
+        'transexchange_publisher' => [
+            'uri' => 'http://localhost:8080/txc/publisherService', // @NOTE CHANGEME
+        ],
     ],
 ];

@@ -9,7 +9,7 @@ return [
                     'backend' => [
                         'options' => [
                             // Backend service URI *Environment specific*
-                            'route' => 'api.<%= @domain %>'
+                            'route' => 'iuap2.<%= @domain %>'
                         ]
                     ]
                 ]
@@ -22,7 +22,7 @@ return [
         'endpoints' => [
             // Backend service URI *Environment specific*
             'backend' => [
-                'url' => 'http://api.<%= @domain %>/',
+                'url' => 'http://iuap2.<%= @domain %>/',
                 'options' => [
                     'adapter' => \Zend\Http\Client\Adapter\Curl::class,
                     'timeout' => 60,
@@ -38,6 +38,7 @@ return [
             ],
         ]
     ],
+    
     // Document service
     'document_share' => [
         // File hyperlink to document
@@ -46,4 +47,12 @@ return [
 
     // Asset path, URI to olcs-static (CSS, JS, etc] *Environment specific*
     'asset_path' => '/static/public',
+
+    'openam' => [
+        'url' => '<%= @olcs_iu_uri %>/secure/',
+        'realm' => 'internal',
+        'cookie' => [
+            'domain' => '<%= @olcs_iu_cookie %>',
+        ]
+    ]
 ];
