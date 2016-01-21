@@ -38,13 +38,15 @@ return [
             ],
         ]
     ],
+
     // Asset path, URI to olcs-static (CSS, JS, etc] *Environment specific*
     'asset_path' => '/static/public',
+
     'openam' => [
-        'url' => 'http://olcs-selfserve.olcs.gov.uk/secure/', // @NOTE CHANGEME
+        'url' => '<%= @olcs_ss_uri %>/secure/',
         'realm' => 'selfserve',
         'cookie' => [
-            'domain' => '.olcs.gov.uk', // @NOTE CHANGEME
+            'domain' => '<%= @olcs_ss_cookie %>',
         ]
     ]
 ];
