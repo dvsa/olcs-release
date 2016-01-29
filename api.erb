@@ -170,10 +170,30 @@ return [
         'uri' => 'http://dir.<%= @domain %>:8080',
         'pid_header' => 'X-Pid'
     ],
-
     'ebsr' => [
         'transexchange_publisher' => [
             'uri' => 'http://localhost:8080/txc/publisherService', // @NOTE CHANGEME
         ],
+        //debug only - validation must always be set to true in production
+        'validate' => [
+            'xml_structure' => true,
+            'bus_registration' => true,
+            'processed_data' => true,
+            'short_notice' => true
+        ]
     ],
+    'nr' => [
+        // @to-do currently waiting on the actual nr address
+        'inr_service' => [
+            'uri' => 'http://testServiceAddress',
+            'options' => ['timeout' => 30]
+        ],
+        'repute_url' => [
+            'uri' => 'https://r-inr-01.corp.vosa.gov.uk:444/INR.BackofficeWeb/Repute/SubmitCheck.aspx?'
+        ],
+        'msi_response' => [
+            'parent_node' => 'MS2ERRU_Infringement_Res',
+            'ns' => 'https://webgate.ec.testa.eu/erru/1.0'
+        ]
+    ]
 ];
