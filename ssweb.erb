@@ -43,7 +43,7 @@ return [
     'asset_path' => '/static/public',
 
     'openam' => [
-        'url' => '<%= @olcs_ss_uri %>/secure/',
+        'url' => 'http://ssauth.<%= @domain %>:8080/secure/',
         'realm' => 'selfserve',
         'cookie' => [
             'domain' => '<%= @olcs_ss_cookie %>',

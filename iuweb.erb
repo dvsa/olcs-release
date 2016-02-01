@@ -38,7 +38,7 @@ return [
             ],
         ]
     ],
-    
+
     // Document service
     'document_share' => [
         // File hyperlink to document
@@ -49,7 +49,7 @@ return [
     'asset_path' => '/static/public',
 
     'openam' => [
-        'url' => '<%= @olcs_iu_uri %>/secure/',
+        'url' => 'http://iuauth.<%= @domain %>:8080/secure/',
         'realm' => 'internal',
         'cookie' => [
             'domain' => '<%= @olcs_iu_cookie %>',
