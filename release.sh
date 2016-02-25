@@ -46,4 +46,5 @@ olcs-addressbase/$ADDRESS_ETL.tar.gz \
 address-service/$ADDRESS_SERVICE.erb \
 address-service/$ADDRESS_SERVICE.tar.gz \
 olcs-elasticsearch/$ELASTIC.tar.gz \
-olcs-etl/$ETL.tar.gz
+olcs-etl/$ETL.tar.gz \
+txc/$TXCHANGE.war
