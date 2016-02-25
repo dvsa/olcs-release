@@ -6,13 +6,29 @@ source ./versions.sh
 cp api.erb ../release/api/$BACKEND.erb
 cp iuweb.erb ../release/iuweb/$INTERNAL.erb
 cp ssweb.erb ../release/ssweb/$SELFSERVE.erb
+cp address.erb ../release/address-service/$ADDRESS_SERVICE.erb
+
+
+# create tar for olcs-addressbase (address ETL scripts)
+rm -rf olcs-addressbase
+git clone git@gitlab.inf.mgt.mtpdvsa:olcs/olcs-addressbase.git
+cd olcs-addressbase
+git checkout $ADDRESS_ETL
+tar -czvf ../../release/olcs-addressbase/$ADDRESS_ETL.tar.gz *
+cd ..
+
+# create tar for olcs-elasticsearch scripts
+rm -rf olcs-elasticsearch
+git clone git@gitlab.inf.mgt.mtpdvsa:olcs/olcs-elasticsearch.git
+cd olcs-elasticsearch
+git checkout $ELASTIC
+tar -czvf ../../release/olcs-elasticsearch/$ELASTIC.tar.gz *
+cd ..
 
 if [ ! -d olcs-txt ]; then
     git clone git@gitlab.inf.mgt.mtpdvsa:olcs/olcs-txc.git
 fi
-
 (cd olcs-txc && git checkout $TXCHANGE)
-
 cp olcs-txc/txc.war ../release/txc/$TXCHANGE.war
 
 cd ../release
@@ -26,4 +42,8 @@ olcs-selfserve/$SELFSERVE.tar.gz \
 ssweb/$SELFSERVE.erb \
 olcs-static/$STATIC.tar.gz \
 olcs-scanning/$SCANNING.tar.gz \
-txc/$TXCHANGE.war
+olcs-addressbase/$ADDRESS_ETL.tar.gz \
+address-service/$ADDRESS_SERVICE.erb \
+address-service/$ADDRESS_SERVICE.tar.gz \
+olcs-elasticsearch/$ELASTIC.tar.gz \
+olcs-etl/$ETL.tar.gz

@@ -170,23 +170,34 @@ return [
         'uri' => 'http://dir.<%= @domain %>:8080',
         'pid_header' => 'X-Pid'
     ],
+
     'ebsr' => [
         'transexchange_publisher' => [
             'uri' => 'http://localhost:8080/txc/publisherService', // @NOTE CHANGEME
         ],
         //debug only - validation must always be set to true in production
         'validate' => [
-            'xml_structure' => true,
-            'bus_registration' => true,
-            'processed_data' => true,
-            'short_notice' => true
+            'xml_structure' => false,
+            'bus_registration' => false,
+            'processed_data' => false,
+            'short_notice' => false
         ]
     ],
+
     'nr' => [
         // @to-do currently waiting on the actual nr address
         'inr_service' => [
             'uri' => 'http://testServiceAddress',
-            'options' => ['timeout' => 30]
+            'options' => [
+                'timeout' => 30,
+                'adapter'   => 'Zend\Http\Client\Adapter\Curl',
+                'curloptions' => [
+                    CURLOPT_SSL_VERIFYPEER => 1, //debug only, must be set to 1 in production
+                    CURLOPT_SSL_VERIFYHOST => 2, //debug only, must be set to 2 in production
+                    // file name of the National Register client certificate
+                    CURLOPT_CAINFO => 'inrcert.pem'
+                ]
+            ]
         ],
         'repute_url' => [
             'uri' => 'https://r-inr-01.corp.vosa.gov.uk:444/INR.BackofficeWeb/Repute/SubmitCheck.aspx?'
@@ -195,5 +206,33 @@ return [
             'parent_node' => 'MS2ERRU_Infringement_Res',
             'ns' => 'https://webgate.ec.testa.eu/erru/1.0'
         ]
-    ]
+    ],
+
+    'print' => [
+        'server' => 'print01.olcs.mgt.mtpdvsa:631'
+    ],
+
+    /**
+     * Configure the location of the application log
+     */
+//    'log' => [
+//        'Logger' => [
+//            'writers' => [
+//                'full' => [
+//                    'options' => [
+//                        'stream' => '/var/tmp/internal.log'
+//                    ],
+//                ]
+//            ]
+//        ],
+//        'ExceptionLogger' => [
+//            'writers' => [
+//                'full' => [
+//                    'options' => [
+//                        'stream' => '/var/tmp/internal.log'
+//                    ],
+//                ]
+//            ]
+//        ]
+//    ]
 ];
