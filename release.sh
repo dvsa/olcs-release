@@ -25,6 +25,17 @@ git checkout $ELASTIC
 tar -czvf ../../release/olcs-elasticsearch/$ELASTIC.tar.gz *
 cd ..
 
+# OpenAM NB This openAM bit hasn;t been tested Mat 26 Feb 2016
+rm -rf olcs-oa
+git clone git@gitlab.inf.mgt.mtpdvsa:olcs/olcs-oa.git
+cd olcs-oa
+git checkout $OPENAM_CONFIG
+tar -czvf ../../release/olcs-oa/openam-$OPENAM.tar.gz openam/*
+tar -czvf ../../release/olcs-oa/opendj-$OPENAM.tar.gz opendj/*
+tar -czvf ../../release/olcs-oa/openam-config-$OPENAM_CONFIG.tar.gz environments/aws/*
+cd ..
+
+
 if [ ! -d olcs-txt ]; then
     git clone git@gitlab.inf.mgt.mtpdvsa:olcs/olcs-txc.git
 fi
@@ -47,4 +58,7 @@ address-service/$ADDRESS_SERVICE.erb \
 address-service/$ADDRESS_SERVICE.tar.gz \
 olcs-elasticsearch/$ELASTIC.tar.gz \
 olcs-etl/$ETL.tar.gz \
-txc/$TXCHANGE.war
+txc/$TXCHANGE.war \
+olcs-oa/openam-config-$OPENAM_CONFIG.tar.gz \
+olcs-oa/opendj-$OPENAM.tar.gz \
+olcs-oa/openam-$OPENAM.tar.gz
