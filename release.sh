@@ -52,7 +52,6 @@ iuweb/$INTERNAL.erb \
 olcs-selfserve/$SELFSERVE.tar.gz \
 ssweb/$SELFSERVE.erb \
 olcs-static/$STATIC.tar.gz \
-olcs-scanning/$SCANNING.tar.gz \
 olcs-addressbase/$ADDRESS_ETL.tar.gz \
 address-service/$ADDRESS_SERVICE.erb \
 address-service/$ADDRESS_SERVICE.tar.gz \
