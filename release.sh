@@ -11,7 +11,7 @@ cp address.erb ../release/address-service/$ADDRESS_SERVICE.erb
 
 # create tar for olcs-addressbase (address ETL scripts)
 rm -rf olcs-addressbase
-git clone git@gitlab.inf.mgt.mtpdvsa:olcs/olcs-addressbase.git
+git clone git@gitlab.inf.mgt.mtpdvsa:sc/address-base.git olcs-addressbase
 cd olcs-addressbase
 git checkout $ADDRESS_ETL
 tar -czvf ../../release/olcs-addressbase/$ADDRESS_ETL.tar.gz *
