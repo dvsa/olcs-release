@@ -36,6 +36,15 @@ tar -czvf ../../release/olcs-oa/openam-config-$OPENAM_CONFIG.tar.gz environments
 cd ..
 
 
+# create tar for olcs-templates
+rm -rf olcs-templates
+git clone git@gitlab.inf.mgt.mtpdvsa:olcs/olcs-templates.git
+cd olcs-templates
+git checkout $TEMPLATES
+tar -czvf ../../release/olcs-templates/$TEMPLATES.tar.gz *
+cd ..
+
+
 if [ ! -d olcs-txt ]; then
     git clone git@gitlab.inf.mgt.mtpdvsa:olcs/olcs-txc.git
 fi
@@ -56,6 +65,7 @@ olcs-addressbase/$ADDRESS_ETL.tar.gz \
 address-service/$ADDRESS_SERVICE.erb \
 address-service/$ADDRESS_SERVICE.tar.gz \
 olcs-elasticsearch/$ELASTIC.tar.gz \
+olcs-templates/$TEMPLATES.tar.gz \
 olcs-etl/$ETL.tar.gz \
 txc/$TXCHANGE.war \
 olcs-oa/openam-config-$OPENAM_CONFIG.tar.gz \
