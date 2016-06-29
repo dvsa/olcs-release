@@ -66,9 +66,9 @@ return [
     // Companies house XML gateway credentials
     'companies_house_credentials' => [
         // Companies house XML gateway userID *Environment specific*
-        'userId' => 'XMLGatewayTestUserID',
+        'userId' => '<%= @olcs_companieshousexmluserid %>',
         // Companies house XML gateway password *Environment specific*
-        'password' => 'XMLGatewayTestPassword',
+        'password' => '<%= olcs_companieshousexmlpassword %>',
     ],
 
     // Set the following if you need to go via a proxy to get to Companies house XML gateway
@@ -100,7 +100,7 @@ return [
         ],
         'auth' => [
             // Companies House API key (register one at https://developer.companieshouse.gov.uk/] *Environment specific*
-            'username' => "<%= scope.function_hiera(['olcs_companieshouseapikey']) %>",
+            'username' => "<%= olcs_companieshouseapikey %>",
             // Leave this empty
             'password' => '',
         ],
@@ -139,27 +139,28 @@ return [
     // Email config
     'email' => [
         // Debugging option forces all email to be sent to an address
-        // 'send_all_mail_to' => 'terry.valtech@gmail.com',
         // Selfserve/external URI e.g. http://demo_dvsa-selfserve.web03.olcs.mgt.mtpdvsa *Environment specific*
+        'send_all_mail_to' => '<%= scope.function_hiera(['olcs_send_all_mail_to']) %>',
         'from_name' => 'OLCS do not reply',
         'from_email' => '<%= @olcs_from_email %>',
         'selfserve_uri' => '<%= @olcs_ss_uri %>',
-        'internal_uri' => '',
+        'internal_uri' => '<%= @olcs_iu_uri %>',
     ],
 
-    'mail' => [],
+    'mail' => array(),
     'mailboxes' => [
         // IMAP connection to a the mailbox for reading inspection request emails
         'inspection_request' => [
             // IMAP hostname *Environment specific*
-            'host' => 'mail01.olcs.mgt.mtpdvsa',
+            'host' => '<%= @olcs_imap_host %>',
             // IMAP user *Environment specific*
-            'user' => 'olcsemail',
+            'user' => '<%= @olcs_imap_user %>',
             // IMAP password *Environment specific*
-            'password' => '74398f7g39',
+            'password' => '<%= @olcs_imap_password %>',
             // IMAP port 993 *Environment specific*
-            'port' => 993,
-            'ssl' => 'SSL',
+            'port' => <%= @olcs_imap_port %>,
+            // SSL (0 or 1)
+            'ssl' => '<%= @olcs_imap_ssl %>',
         ],
     ],
 
@@ -180,17 +181,17 @@ return [
         ],
         //debug only - validation must always be set to true in production
         'validate' => [
-            'xml_structure' => false,
-            'bus_registration' => false,
-            'processed_data' => false,
-            'short_notice' => false
+            'xml_structure' => true,
+            'bus_registration' => true,
+            'processed_data' => true,
+            'short_notice' => true
         ]
     ],
 
     'nr' => [
         // @to-do currently waiting on the actual nr address
         'inr_service' => [
-            'uri' => 'http://testServiceAddress',
+            'uri' => '<%= @olcs_natreg_uri %>',
             'options' => [
                 'timeout' => 30,
                 'adapter'   => 'Zend\Http\Client\Adapter\Curl',
@@ -198,43 +199,43 @@ return [
                     CURLOPT_SSL_VERIFYPEER => 1, //debug only, must be set to 1 in production
                     CURLOPT_SSL_VERIFYHOST => 2, //debug only, must be set to 2 in production
                     // file name of the National Register client certificate
-                    CURLOPT_CAINFO => 'inrcert.pem'
+                    CURLOPT_CAINFO => '/etc/ssl/certs/atos-ca1.pem'
                 ]
             ]
         ],
         'repute_url' => [
-            'uri' => 'https://r-inr-01.corp.vosa.gov.uk:444/INR.BackofficeWeb/Repute/SubmitCheck.aspx?'
+            'uri' => '<%= @olcs_natreg_repute %>'
         ],
     ],
 
     'print' => [
-        'server' => 'print01.olcs.mgt.mtpdvsa:631'
+        'server' => 'print.<%= @olcs_shd %>:631'
     ],
 
     /**
      * Configure the location of the application log
      */
-//    'log' => [
-//        'Logger' => [
-//            'writers' => [
-//                'full' => [
-//                    'options' => [
-//                        'stream' => '/var/tmp/internal.log'
-//                    ],
-//                ]
-//            ]
-//        ],
-//        'ExceptionLogger' => [
-//            'writers' => [
-//                'full' => [
-//                    'options' => [
-//                        'stream' => '/var/tmp/internal.log'
-//                    ],
-//                ]
-//            ]
-//        ]
-//    ]
-       'vi_extract_files' => [
-           'export_path' => '/tmp/ViExtract'
-       ]
+    'log' => [
+        'Logger' => [
+            'writers' => [
+                'full' => [
+                    'options' => [
+                        'stream' => '/var/log/dvsa/olcs-api/api.log'
+                    ],
+                ]
+            ]
+        ],
+        'ExceptionLogger' => [
+            'writers' => [
+                'full' => [
+                    'options' => [
+                        'stream' => '/var/log/dvsa/olcs-api/api.log'
+                    ],
+                ]
+            ]
+        ]
+    ],
+    'vi_extract_files' => [
+      'export_path' => '/tmp/ViExtract'
+    ]
 ];

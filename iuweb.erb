@@ -41,8 +41,8 @@ return [
 
     // Document service
     'document_share' => [
-        // File hyperlink to document
-        'uri_pattern' => 'file://///file.<%= @domain %>/olcs/%s'
+    // File hyperlink to document
+    'uri_pattern' => 'file://///file.<%= @domain %>/olcs/%s'
     ],
 
     // Asset path, URI to olcs-static (CSS, JS, etc] *Environment specific*
@@ -54,29 +54,29 @@ return [
         'cookie' => [
             'domain' => '<%= @olcs_iu_cookie %>',
         ]
-    ]
+    ],
 
     /**
      * Configure the location of the application log
      */
-//    'log' => [
-//        'Logger' => [
-//            'writers' => [
-//                'full' => [
-//                    'options' => [
-//                        'stream' => '/var/tmp/internal.log'
-//                    ],
-//                ]
-//            ]
-//        ],
-//        'ExceptionLogger' => [
-//            'writers' => [
-//                'full' => [
-//                    'options' => [
-//                        'stream' => '/var/tmp/internal.log'
-//                    ],
-//                ]
-//            ]
-//        ]
-//    ]
+     'log' => [
+         'Logger' => [
+             'writers' => [
+                 'full' => [
+                     'options' => [
+                         'stream' => '/var/log/dvsa/olcs-iuweb/iuweb.log'
+                     ],
+                 ]
+             ]
+         ],
+         'ExceptionLogger' => [
+             'writers' => [
+                 'full' => [
+                     'options' => [
+                         'stream' => '/var/log/dvsa/olcs-iuweb/iuweb.log'
+                     ],
+                 ]
+             ]
+         ]
+     ],
 ];
