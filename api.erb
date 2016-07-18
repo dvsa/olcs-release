@@ -11,6 +11,20 @@
  * in ZendSkeletonApplication. This is a good practice, as it prevents sensitive
  * credentials from accidentally being committed into version control.
  */
+
+$doctrine_connection_params = [
+    // *Environment specific*
+    'host' => 'olcsdb-rds.<%= @domain %>',
+    // *Environment specific*
+    'port' => '3306',
+    // *Environment specific*
+    'user' => 'olcsapi',
+    // *Environment specific*
+    'password' => '<%= @olcs_api_rds_password %>',
+    // *Environment specific*
+    'dbname' => 'OLCS_RDS_OLCSDB',
+];
+
 return [
     // Postcode/Address service
     'address' => [
@@ -32,21 +46,20 @@ return [
     'doctrine' => [
         'connection' => [
             'orm_default' => [
-                'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+                'driverClass' => \Doctrine\DBAL\Driver\PDOMySql\Driver::class,
                 // Database connection details
-                'params' => [
-                    // *Environment specific*
-                    'host' => 'olcsdb-rds.<%= @domain %>',
-                    // *Environment specific*
-                    'port' => '3306',
-                    // *Environment specific*
-                    'user' => 'olcsapi',
-                    // *Environment specific*
-                    'password' => '<%= @olcs_api_rds_password %>',
-                    // *Environment specific*
-                    'dbname' => 'OLCS_RDS_OLCSDB',
-                ]
-            ]
+                'params' => $doctrine_connection_params,
+            ],
+            'export' => [
+                'driverClass' => \Doctrine\DBAL\Driver\PDOMySql\Driver::class,
+                'params' => $doctrine_connection_params +
+                    [
+                        'driverOptions' => [
+                            PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => false,
+                            PDO::CURSOR_FWDONLY => true,
+                        ],
+                    ],
+            ],
         ],
         'driver' => [
             'EntityDriver' => [
@@ -89,6 +102,9 @@ return [
         ],
     ],
 
+    // Asset path, URI to olcs-static (CSS, JS, etc) *Environment specific*
+    'asset_path' => '/static/public',
+
     // Companies house RESTful API
     'companies_house' => [
         'http' => [
@@ -96,6 +112,8 @@ return [
             // *Environment specific*
             'curloptions' => [
                 CURLOPT_PROXY => "http://<%= scope.function_hiera(['shd_proxy']) %>",
+                // Companies House API key followed by a colon
+                CURLOPT_USERPWD => "<%= olcs_companieshouseapikey %>:",
             ],
         ],
         'auth' => [
@@ -147,7 +165,7 @@ return [
         'internal_uri' => '<%= @olcs_iu_uri %>',
     ],
 
-    'mail' => array(),
+    'mail' => [],
     'mailboxes' => [
         // IMAP connection to a the mailbox for reading inspection request emails
         'inspection_request' => [
@@ -179,6 +197,7 @@ return [
                 'timeout' => 30
             ]
         ],
+        'tmp_extra_path' => '/EBSR-tmp', //extra path to ebsr files within /tmp
         //debug only - validation must always be set to true in production
         'validate' => [
             'xml_structure' => true,
@@ -235,7 +254,16 @@ return [
             ]
         ]
     ],
+    // Path to VI extract data
     'vi_extract_files' => [
-      'export_path' => '/tmp/ViExtract'
-    ]
+        'export_path' => '/tmp/ViExtract'
+    ],
+    // Path to export CSV data for data.gov.uk
+    'data-gov-uk-export' => [
+        'path' => '/tmp/dataGovUk',
+    ],
+    // Path to export CSV data for Companies House differences
+    'ch-vs-olcs-export' => [
+        'path' => '/tmp/companyHouse_vs_Olcs',
+    ],
 ];
