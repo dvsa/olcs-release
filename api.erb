@@ -239,7 +239,15 @@ return [
             'writers' => [
                 'full' => [
                     'options' => [
-                        'stream' => '/var/log/dvsa/olcs-api/api.log'
+                        'stream' => '/var/log/dvsa/olcs-api/api.log',
+                        'filters' => [
+                            'priority' => [
+                                'name' => 'priority',
+                                'options' => [
+                                    'priority' => \Zend\Log\Logger::DEBUG
+                                ]
+                            ],
+                        ]
                     ],
                 ]
             ]
@@ -248,7 +256,15 @@ return [
             'writers' => [
                 'full' => [
                     'options' => [
-                        'stream' => '/var/log/dvsa/olcs-api/api.log'
+                        'stream' => '/var/log/dvsa/olcs-api/api.log',
+                        'filters' => [
+                            'priority' => [
+                                'name' => 'priority',
+                                'options' => [
+                                    'priority' => \Zend\Log\Logger::DEBUG
+                                ]
+                            ],
+                        ]
                     ],
                 ]
             ]
