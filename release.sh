@@ -77,4 +77,5 @@ olcs-etl/$ETL.tar.gz \
 txc/$TXCHANGE.war \
 olcs-oa/openam-config-$OPENAM_CONFIG.tar.gz \
 olcs-oa/opendj-$OPENAM.tar.gz \
-olcs-oa/openam-$OPENAM.tar.gz
+olcs-oa/openam-$OPENAM.tar.gz \
+olcs-guides/$GUIDES.tar.gz
