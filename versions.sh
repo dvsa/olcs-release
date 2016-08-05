@@ -16,4 +16,5 @@ ETL="3.6"
 TXCHANGE="0.1"
 OPENAM="1.2"
 OPENAM_CONFIG="3.6"
-GUIDES="1.0"
+GUIDES="1.0" # 5 Aug 2016 - Not Tested, check on next release
+REPORTS="NEED A VALUE HERE" # 5 Aug 2016 - Not Tested, check on next release

@@ -58,6 +58,18 @@ if [ ! -f ../release/txc/$TXCHANGE.war ]; then
     cp olcs-txc/txc.war ../release/txc/$TXCHANGE.war
 fi
 
+# Jasper reports
+if [ ! -f ../../release/olcs-reporting/$REPORTS.tar.gz ]; then
+    rm -rf olcs-reporting
+    git clone git@gitlab.inf.mgt.mtpdvsa:olcs/olcs-reporting.git
+    cd olcs-reporting
+    git checkout $REPORTS
+    mkdir -p ../../release/olcs-reporting/
+    make tar FILE=../../release/olcs-reporting/$REPORTS.tar.gz
+    cd ..
+fi
+
+
 cd ../release
 
 tar --transform='flags=r;s|\/|-|' -czf OLCS-$OLCS_VERSION.tar.gz \
