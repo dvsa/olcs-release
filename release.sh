@@ -39,7 +39,7 @@ if [ ! -f ../release/olcs-elasticsearch/$ELASTIC.tar.gz ]; then
 fi
 
 # OpenAM
-if [ ! -f ../../release/olcs-oa/openam-$OPENAM.tar.gz ]; then
+if [ ! -f ../release/olcs-oa/openam-$OPENAM.tar.gz ]; then
 	rm -rf olcs-oa
 	git clone git@gitlab.inf.mgt.mtpdvsa:olcs/olcs-oa.git
 	cd olcs-oa
