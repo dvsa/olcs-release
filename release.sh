@@ -75,7 +75,7 @@ if [ ! -f ../release/olcs-reporting/$REPORTS.tar.gz ]; then
     cd olcs-reporting
     git checkout $REPORTS
     mkdir -p ../../release/olcs-reporting/
-    make tar FILE=../../release/olcs-reporting/$REPORTS.tar.gz
+    make tar FILE=../../release/olcs-reporting/$REPORTS
     cd ..
 fi
 
