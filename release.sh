@@ -39,19 +39,16 @@ if [ ! -f ../release/olcs-elasticsearch/$ELASTIC.tar.gz ]; then
 fi
 
 # OpenAM
-rm -rf olcs-oa
-git clone git@gitlab.inf.mgt.mtpdvsa:olcs/olcs-oa.git
-cd olcs-oa
-git checkout $OPENAM_CONFIG
 if [ ! -f ../../release/olcs-oa/openam-$OPENAM.tar.gz ]; then
+	rm -rf olcs-oa
+	git clone git@gitlab.inf.mgt.mtpdvsa:olcs/olcs-oa.git
+	cd olcs-oa
+	git checkout $OPENAM_CONFIG
+
 	tar -czvf ../../release/olcs-oa/openam-$OPENAM.tar.gz openam/*
-fi
-if [ ! -f ../../release/olcs-oa/opendj-$OPENAM.tar.gz ]; then
 	tar -czvf ../../release/olcs-oa/opendj-$OPENAM.tar.gz opendj/*
+	cd ..
 fi
-#tar -czvf ../../release/olcs-oa/openam-config-$OPENAM_CONFIG.tar.gz environments/aws/*
-#tar -czvf ../../release/olcs-oa/openam-config-$OPENAM_CONFIG.tar.gz iuuath-$OPENAM_CONFIG.erb ssauth.erb ssuath-$OPENAM_CONFIG.erb dir.erb dir-$OPENAM_CONFIG.erb
-cd ..
 
 # create tar for olcs-templates
 if [ ! -f ../release/olcs-templates/$TEMPLATES.tar.gz ]; then
@@ -91,8 +88,8 @@ iuweb-$INTERNAL.erb \
 ssweb-$SELFSERVE.erb \
 address-service-$ADDRESS_SERVICE.erb \
 iuuath-$OPENAM_CONFIG.erb \
-ssauth.erb ssuath-$OPENAM_CONFIG.erb \
-dir.erb dir-$OPENAM_CONFIG.erb \
+ssuath-$OPENAM_CONFIG.erb \
+dir-$OPENAM_CONFIG.erb \
 olcs-backend/$BACKEND.tar.gz \
 olcs-internal/$INTERNAL.tar.gz \
 olcs-selfserve/$SELFSERVE.tar.gz \
