@@ -1,0 +1,164 @@
+############################
+#  OLCS OPENAM BUILD FILE  #
+############################
+#
+# Frontend website server protocol
+FRONTEND_PROTOCOL=https
+
+# Frontend website server host name (with domain name)
+FRONTEND_HOSTNAME=<%= frontend_hostname %>
+
+# Frontend website server port
+FRONTEND_PORT=443
+
+#
+# Domain name that is appended to each hostname to create a full hostname
+DOMAIN_NAME=<%= @domain %>
+
+# Realm domain name suffix, get's appended to each OPENAM_REALM_HOSTNAME to create the FQDN
+REALM_DOMAIN_NAME=<%= @domain %>
+
+# Loadbalancer hostname that becomes the OpenAM SITE_NAME
+OPENAM_LOADBALANCER_HOSTNAME=iuauth
+
+# The first OpenAM to be installed which creates configuration for a loadbalanced server farm
+# Normally "OPENAM_FIRST_HOSTNAME=iuauth-eu-west-1a" however resiliency is not working
+OPENAM_FIRST_HOSTNAME=<%= @hostname %>
+
+# The port used by the loadbalancer to connect with OpenAM (8080)
+OPENAM_SERVER_PORT=8080
+
+# The protocol used by the loadbalancer to connect with OpenAM (http OR https)
+OPENAM_SERVER_PROTOCOL=http
+
+# OpenAM communicates with embeded configuration store normally as localhost (false OR true)
+OPENAM_CONFIGURATION_SECURE=false
+
+# The port used by clients to connect to the loadbalancer fronting OpenAM
+OPENAM_LOADBALANCER_PORT=8080
+
+# The protocol used by clients to connect to the loadbalancer fronting OpenAM
+OPENAM_LOADBALANCER_PROTOCOL=http
+
+# OpenAM realms support by this installation
+OPENAM_REALMS=internal
+
+# Realm unique hostnames as CSV
+OPENAM_REALM_HOSTNAMES=iuap1
+
+# Realm unique application dashboards as CSV
+OPENAM_REALM_DASHBOARDS=dashboard
+
+# If the OpenAM build is set to PROD then all build artifacts are removed after the successful build
+OPENAM_BUILD=PROD
+
+# OpenAM log debug level. Valid values ( off error warning message ). Production must be warning
+OPENAM_DEBUG_LEVEL=warning
+
+# OpenAM merge debug log files. Valid values ( on off )
+OPENAM_MERGE_LOGS=off
+
+# OpenAM ensure SSO token is only sent by the browser over secure protocols (true false)
+OPENAM_SECURE_TOKEN=true
+
+# OpenAM Session Max Session Time
+OPENAM_SESSION_MAX_SESSION_TIME=720
+
+# OpenAM Session Max Idle Time
+OPENAM_SESSION_MAX_IDLE_TIME=90
+
+# The primary LDAP connection for CTS and Users for this OpenAM server
+LDAP_PRIMARY_HOSTNAME=dir-eu-west-1a
+
+# The secondary or failover LDAP connection for CTS and Users for this OpenAM server
+LDAP_SECONDARY_HOSTNAME=dir-eu-west-1b
+
+# The connection method used by OpenAM to connect with the LDAP server (ldap OR ldaps)
+LDAP_CONNECTION_MODE=ldap
+
+#
+# PROXY BUILD
+#
+# Build proxy to protect backend servers (true OR false)
+PROXY_BUILD=true
+
+# Proxy debug Level. Valid values ( All Error Info Message Warning )
+PROXY_DEBUG_LEVEL=Warning
+
+# Proxy hostnames. Comma seperated list of hosts that will have a proxy webagent installed
+PROXY_HOSTNAMES=iuap2-eu-west-1a,iuap2-eu-west-1b,iuap2-eu-west-1c
+
+PROXY_LOADBALANCER_HOSTNAME=iuap2
+
+# Port used by OpenAM to connect to the proxy webagent for notifications
+PROXY_PORT=8080
+
+# Protocol used by OpenAM to connect to the proxy webagent for notifications (http OR https)
+PROXY_PROTOCOL=http
+
+# Replaces the hostname sections of the whitelist
+WHITELIST_INTERNAL_HOSTNAME=http://<%= @frontend_hostname %>:80
+WHITELIST_SELFSERVE_HOSTNAME=
+WHITELIST_BACKEND_HOSTNAME=http://iuap2.<%= @domain %>:80
+
+# Proxy whitelist URLS's. These URL's donot have authentication enforced and can be accessed by anonymous users.
+PROXY_WHITELISTS=(BACKEND)/api/system-info-message/active*,(BACKEND)/api/user/roles*,(BACKEND)/api/user/roles*?*,(BACKEND)/api/my-account*,(BACKEND)/api/my-account*?*
+
+#
+# WEBAGENT BUILD
+#
+# Build webagent to protect application servers (true OR false)
+WEBAGENT_BUILD=true
+
+# The webagent login and logout page URI for user redirection
+WEBAGENT_LOGIN_URI=auth/login/
+WEBAGENT_LOGOUT_URI=auth/logout/
+
+# WebAgent debug Level. Valid values ( All Error Info Message Warning )
+WEBAGENT_DEBUG_LEVEL=Warning
+
+# Proxy hostnames. Comma seperated list of hosts that will have a proxy webagent installed
+WEBAGENT_HOSTNAMES=iuap1-eu-west-1a,iuap1-eu-west-1b,iuap1-eu-west-1c
+
+# The Hostname of the webagent loadbalance used only when the proxy does not pass the original hostname to SSWEB and iuauth
+WEBAGENT_LOADBALANCER_HOSTNAME=iuap1
+
+# The port of the webagent loadbalancer
+WEBAGENT_LOADBALANCER_PORT=80
+
+# The port of the webagent loadbalancer
+WEBAGENT_LOADBALANCER_PROTOCOL=http
+
+# Port used by OpenAM to connect to the proxy webagent for notifications
+WEBAGENT_PORT=8080
+
+# Protocol used by OpenAM to connect to the proxy webagent for notifications (http OR https)
+WEBAGENT_PROTOCOL=http
+
+# Webagent whitelist URLS's. These URL's donot have authentication enforced and can be accessed by anonymous users.
+WEBAGENT_WHITELISTS=(INTERNAL)/auth*,(INTERNAL)/auth*?*,(INTERNAL)/static*,(INTERNAL)/static*?*
+
+# Other configuration
+#
+# Hostname for the mail server host (localhost OR FQDN)
+MAIL_HOSTNAME=localhost
+
+# Port used on the mail server for OpenAM to transport SMTP mail messages
+MAIL_PORT=25
+
+# Username used when connecting to the mail server
+MAIL_USERNAME=
+
+# Password for the user when connecting to the mail server
+MAIL_USER_PASSWORD=
+
+# Boolean that signifies whether TLS SMTP is used
+MAIL_TRANSPORT_SECURITY=false
+
+# The reply address used on OpenAM generated email for password resets (noreply ADDRESS)
+MAIL_REPLY_ADDRESS=<%= @olcs_from_email %>
+
+MAIL_SSL=Non SSL
+
+# The JAVA HOME directory on this server
+JAVA_HOME=/usr/lib/jvm/jre

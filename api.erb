@@ -72,6 +72,8 @@ return [
         'configuration' => [
             'orm_default' => [
                 'metadata_cache' => 'apc'
+                // Log SQL queries to the OLCS application log file
+                //'sql_logger' => 'DoctrineLogger',
             ]
         ],
     ],
@@ -270,16 +272,36 @@ return [
             ]
         ]
     ],
+
     // Path to VI extract data
     'vi_extract_files' => [
         'export_path' => '/tmp/ViExtract'
     ],
+
     // Path to export CSV data for data.gov.uk
     'data-gov-uk-export' => [
         'path' => '/tmp/dataGovUk',
     ],
+
     // Path to export CSV data for Companies House differences
     'ch-vs-olcs-export' => [
         'path' => '/tmp/companyHouse_vs_Olcs',
     ],
+
+    // Nysiis SOAP configuration
+    'nysiis' => [
+        'wsdl' => [
+            'uri' => '<INSERT NYSIIS SOAP URI HERE>?WSDL',
+            'soap' => [
+                'options' => [
+                    'soap_version' => SOAP_1_2,
+                    'cache_wsdl' => 0,
+                    'location' => '<INSERT NYSIIS SOAP URI HERE>',
+                    'uri' => '<INSERT NYSIIS SOAP URI HERE>'
+                    'encoding' => 'UTF-8',
+                    'exceptions' => true
+                ]
+            ]
+        ]
+    ]
 ];

@@ -3,10 +3,19 @@
 # Define all versions
 source ./versions.sh
 
-cp api.erb ../release/api/$BACKEND.erb
-cp iuweb.erb ../release/iuweb/$INTERNAL.erb
-cp ssweb.erb ../release/ssweb/$SELFSERVE.erb
-cp address.erb ../release/address-service/$ADDRESS_SERVICE.erb
+#cp api.erb ../release/api/$BACKEND.erb
+#cp iuweb.erb ../release/iuweb/$INTERNAL.erb
+#cp ssweb.erb ../release/ssweb/$SELFSERVE.erb
+#cp address.erb ../release/address-service/$ADDRESS_SERVICE.erb
+
+# New way of doing this
+cp api.erb api-$BACKEND.erb
+cp iuweb.erb iuweb-$INTERNAL.erb
+cp ssweb.erb ssweb-$SELFSERVE.erb
+cp address.erb address-service-$ADDRESS_SERVICE.erb
+cp iuauth.erb iuuath-$OPENAM_CONFIG.erb
+cp ssauth.erb ssuath-$OPENAM_CONFIG.erb
+cp dir.erb dir-$OPENAM_CONFIG.erb
 
 
 # create tar for olcs-addressbase (address ETL scripts)
@@ -34,11 +43,15 @@ rm -rf olcs-oa
 git clone git@gitlab.inf.mgt.mtpdvsa:olcs/olcs-oa.git
 cd olcs-oa
 git checkout $OPENAM_CONFIG
-tar -czvf ../../release/olcs-oa/openam-$OPENAM.tar.gz openam/*
-tar -czvf ../../release/olcs-oa/opendj-$OPENAM.tar.gz opendj/*
-tar -czvf ../../release/olcs-oa/openam-config-$OPENAM_CONFIG.tar.gz environments/aws/*
+if [ ! -f ../../release/olcs-oa/openam-$OPENAM.tar.gz ]; then
+	tar -czvf ../../release/olcs-oa/openam-$OPENAM.tar.gz openam/*
+fi
+if [ ! -f ../../release/olcs-oa/opendj-$OPENAM.tar.gz ]; then
+	tar -czvf ../../release/olcs-oa/opendj-$OPENAM.tar.gz opendj/*
+fi
+#tar -czvf ../../release/olcs-oa/openam-config-$OPENAM_CONFIG.tar.gz environments/aws/*
+#tar -czvf ../../release/olcs-oa/openam-config-$OPENAM_CONFIG.tar.gz iuuath-$OPENAM_CONFIG.erb ssauth.erb ssuath-$OPENAM_CONFIG.erb dir.erb dir-$OPENAM_CONFIG.erb
 cd ..
-
 
 # create tar for olcs-templates
 if [ ! -f ../../release/olcs-templates/$TEMPLATES.tar.gz ]; then
@@ -73,21 +86,24 @@ fi
 cd ../release
 
 tar --transform='flags=r;s|\/|-|' -czf OLCS-$OLCS_VERSION.tar.gz \
+api-$BACKEND.erb \
+iuweb-$INTERNAL.erb \
+ssweb-$SELFSERVE.erb \
+address-service-$ADDRESS_SERVICE.erb \
+iuuath-$OPENAM_CONFIG.erb \
+ssauth.erb ssuath-$OPENAM_CONFIG.erb \
+dir.erb dir-$OPENAM_CONFIG.erb \
 olcs-backend/$BACKEND.tar.gz \
-api/$BACKEND.erb \
 olcs-internal/$INTERNAL.tar.gz \
-iuweb/$INTERNAL.erb \
 olcs-selfserve/$SELFSERVE.tar.gz \
-ssweb/$SELFSERVE.erb \
 olcs-static/$STATIC.tar.gz \
 olcs-addressbase/$ADDRESS_ETL.tar.gz \
-address-service/$ADDRESS_SERVICE.erb \
 address-service/$ADDRESS_SERVICE.tar.gz \
 olcs-elasticsearch/$ELASTIC.tar.gz \
 olcs-templates/$TEMPLATES.tar.gz \
 olcs-etl/$ETL.tar.gz \
 txc/$TXCHANGE.war \
-olcs-oa/openam-config-$OPENAM_CONFIG.tar.gz \
 olcs-oa/opendj-$OPENAM.tar.gz \
 olcs-oa/openam-$OPENAM.tar.gz \
-olcs-guides/$GUIDES.tar.gz
+olcs-guides/$GUIDES.tar.gz \
+olcs-reporting/$REPORTS.tar.gz
