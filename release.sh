@@ -9,17 +9,17 @@ source ./versions.sh
 #cp address.erb ../release/address-service/$ADDRESS_SERVICE.erb
 
 # New way of doing this
-cp api.erb api-$BACKEND.erb
-cp iuweb.erb iuweb-$INTERNAL.erb
-cp ssweb.erb ssweb-$SELFSERVE.erb
-cp address.erb address-service-$ADDRESS_SERVICE.erb
-cp iuauth.erb iuuath-$OPENAM_CONFIG.erb
-cp ssauth.erb ssuath-$OPENAM_CONFIG.erb
-cp dir.erb dir-$OPENAM_CONFIG.erb
+cp api.erb ../release/api-$BACKEND.erb
+cp iuweb.erb ../release/iuweb-$INTERNAL.erb
+cp ssweb.erb ../release/ssweb-$SELFSERVE.erb
+cp address.erb ../release/address-service-$ADDRESS_SERVICE.erb
+cp iuauth.erb ../release/iuuath-$OPENAM_CONFIG.erb
+cp ssauth.erb ../release/ssuath-$OPENAM_CONFIG.erb
+cp dir.erb ../release/dir-$OPENAM_CONFIG.erb
 
 
 # create tar for olcs-addressbase (address ETL scripts)
-if [ ! -f ../../release/olcs-addressbase/$ADDRESS_ETL.tar.gz ]; then
+if [ ! -f ../release/olcs-addressbase/$ADDRESS_ETL.tar.gz ]; then
     rm -rf olcs-addressbase
     git clone git@gitlab.inf.mgt.mtpdvsa:sc/address-base.git olcs-addressbase
     cd olcs-addressbase
@@ -29,7 +29,7 @@ if [ ! -f ../../release/olcs-addressbase/$ADDRESS_ETL.tar.gz ]; then
 fi
 
 # create tar for olcs-elasticsearch scripts
-if [ ! -f ../../release/olcs-elasticsearch/$ELASTIC.tar.gz ]; then
+if [ ! -f ../release/olcs-elasticsearch/$ELASTIC.tar.gz ]; then
     rm -rf olcs-elasticsearch
     git clone git@gitlab.inf.mgt.mtpdvsa:olcs/olcs-elasticsearch.git
     cd olcs-elasticsearch
@@ -54,7 +54,7 @@ fi
 cd ..
 
 # create tar for olcs-templates
-if [ ! -f ../../release/olcs-templates/$TEMPLATES.tar.gz ]; then
+if [ ! -f ../release/olcs-templates/$TEMPLATES.tar.gz ]; then
     rm -rf olcs-templates
     git clone git@gitlab.inf.mgt.mtpdvsa:olcs/olcs-templates.git
     cd olcs-templates
@@ -72,7 +72,7 @@ if [ ! -f ../release/txc/$TXCHANGE.war ]; then
 fi
 
 # Jasper reports
-if [ ! -f ../../release/olcs-reporting/$REPORTS.tar.gz ]; then
+if [ ! -f ../release/olcs-reporting/$REPORTS.tar.gz ]; then
     rm -rf olcs-reporting
     git clone git@gitlab.inf.mgt.mtpdvsa:olcs/olcs-reporting.git
     cd olcs-reporting
