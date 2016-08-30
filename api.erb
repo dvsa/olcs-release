@@ -291,13 +291,13 @@ return [
     // Nysiis SOAP configuration
     'nysiis' => [
         'wsdl' => [
-            'uri' => '<INSERT NYSIIS SOAP URI HERE>?WSDL',
+            'uri' => '<%= @olcs_nysiis_uri %>?WSDL',
             'soap' => [
                 'options' => [
                     'soap_version' => SOAP_1_2,
                     'cache_wsdl' => 0,
-                    'location' => '<INSERT NYSIIS SOAP URI HERE>',
-                    'uri' => '<INSERT NYSIIS SOAP URI HERE>'
+                    'location' => '<%= @olcs_nysiis_uri %>',
+                    'uri' => '<%= @olcs_nysiis_uri %>',
                     'encoding' => 'UTF-8',
                     'exceptions' => true
                 ]
